@@ -32,7 +32,6 @@ func main() {
 			break
 		}
 	}
-
 	fmt.Println("all info sent ")
 }
 
