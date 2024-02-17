@@ -1,7 +1,7 @@
 package main
 
 import (
-	"5.com/structs-practice/user"
+	"5.com/structs-practice/structsPractice"
 	"fmt"
 )
 
@@ -10,14 +10,14 @@ func main() {
 	userLastName := getUserData("Please enter your last name: ")
 	userBirthDate := getUserData("Please enter your birthDate (MM/DD/YYYY): ")
 
-	var appUser *user.User
-	appUser, err := user.NewUser(userFirstName, userLastName, userBirthDate)
+	var appUser *structsPractice.User
+	appUser, err := structsPractice.NewUser(userFirstName, userLastName, userBirthDate)
 
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	admin := user.NewAdmin("test@example.com", "test123")
+	admin := structsPractice.NewAdmin("test@example.com", "test123")
 	admin.OutputUserDetails()
 	admin.ClearUserData()
 	appUser.OutputUserDetails()
