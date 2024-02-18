@@ -2,9 +2,9 @@ package main
 
 import (
 	"bufio"
-	"fiverr.com/userInput/note"
 	"fmt"
 	"os"
+	"projectfive.com/notes/note"
 	"strings"
 )
 
