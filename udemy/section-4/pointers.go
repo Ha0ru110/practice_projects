@@ -1,14 +1,14 @@
 package main
 
-import "fmt"
+import . "fmt"
 
 func main() {
 	var age int
-	fmt.Scan(&age)
+	_, _ = Scan(&age)
 	agePointer := &age
-	fmt.Println("Age: ", *agePointer)
+	Println("Age: ", *agePointer)
 	getAdultYears(agePointer)
-	fmt.Println(age)
+	Println(age)
 
 }
 

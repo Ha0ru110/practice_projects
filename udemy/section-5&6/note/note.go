@@ -16,7 +16,7 @@ type Note struct {
 }
 
 func (note Note) Display() {
-	fmt.Printf("Your note titled %v has the following Content\n\n%v\n\n", note.Title, note.Content)
+	fmt.Printf("Your note titled %v has the following Text\n\n%v\n\n", note.Title, note.Content)
 }
 
 func New(title, content string) (Note, error) {
@@ -33,7 +33,7 @@ func New(title, content string) (Note, error) {
 
 func (note Note) Save() error {
 	fileName := strings.ReplaceAll(note.Title, " ", "_")
-	fileName = strings.ToLower(fileName)
+	fileName = strings.ToLower(fileName) + ".json"
 	jsonn, err := json.Marshal(note)
 	if err != nil {
 		return err
