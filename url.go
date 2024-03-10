@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-//func main() {
+func main() {
 	http.HandleFunc("/haohaotest", CreateHandler)
 	//receivedJSONDataCh = make(chan map[string]interface{}, 10)
 	//go CompareData()
