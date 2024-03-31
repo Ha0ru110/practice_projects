@@ -1,8 +1,8 @@
 package main
 
 import (
-	"price-calculator.com/haorui/section-9-price-calc/cmdmanager"
-	"price-calculator.com/haorui/section-9-price-calc/prices"
+	"price-calculator.com/haorui/cmdmanager"
+	"price-calculator.com/haorui/prices"
 )
 
 func main() {

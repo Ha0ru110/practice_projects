@@ -3,8 +3,8 @@ package prices
 import (
 	"errors"
 	"fmt"
-	"price-calculator.com/haorui/section-9-price-calc/conversion"
-	"price-calculator.com/haorui/section-9-price-calc/iomanager"
+	"price-calculator.com/haorui/conversion"
+	"price-calculator.com/haorui/iomanager"
 )
 
 type TaxIncludedPricesJob struct {
