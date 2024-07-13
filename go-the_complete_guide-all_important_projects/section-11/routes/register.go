@@ -38,5 +38,3 @@ func cancelRegistration(context *gin.Context) {
 	}
 	context.JSON(200, gin.H{"message": "canceled successfully"})
 }
-
-//update
