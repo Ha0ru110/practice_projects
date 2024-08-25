@@ -18,7 +18,8 @@ func signup(context *gin.Context) {
 		context.JSON(400, gin.H{"message": "Could not parse rq data"})
 		return
 	}
-	context.JSON(201, gin.H{"message": "user created successfully"})
+	token, err := utils.GenerateToken(user.Email, user.ID)
+	context.JSON(201, gin.H{"message": "user created successfully", "token": token})
 }
 
 func login(context *gin.Context) {

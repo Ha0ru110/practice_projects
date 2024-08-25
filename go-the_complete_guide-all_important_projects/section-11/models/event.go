@@ -3,15 +3,14 @@ package models
 import (
 	"database/sql"
 	"frstapi.com/eventorganisersystem/db"
-	"time"
 )
 
 type Event struct {
 	ID          int64
-	Name        string    `binding:"required"`
-	Description string    `binding:"required"`
-	Location    string    `binding:"required"`
-	DateTime    time.Time `binding:"required"`
+	Name        string `binding:"required"`
+	Description string `binding:"required"`
+	Location    string `binding:"required"`
+	dateTime    string `binding:"required"`
 	UserID      int64
 }
 
@@ -29,7 +28,7 @@ func (ev *Event) Save() error {
 			return
 		}
 	}(stmt)
-	result, err := stmt.Exec(ev.Name, ev.Description, ev.Location, ev.DateTime, ev.UserID)
+	result, err := stmt.Exec(ev.Name, ev.Description, ev.Location, ev.dateTime, ev.UserID)
 	if err != nil {
 		return err
 	}
@@ -53,7 +52,7 @@ func GetAllEvents() ([]Event, error) {
 	var events []Event
 	for rows.Next() {
 		var event Event
-		err := rows.Scan(&event.ID, &event.Name, &event.Description, &event.Location, &event.DateTime, &event.UserID)
+		err := rows.Scan(&event.ID, &event.Name, &event.Description, &event.Location, &event.dateTime, &event.UserID)
 		if err != nil {
 			return nil, err
 		}
@@ -67,7 +66,7 @@ func GetEventByID(id int64) (*Event, error) {
 	row := db.DB.QueryRow(query, id)
 
 	var event Event
-	err := row.Scan(&event.ID, &event.Name, &event.Description, &event.Location, &event.DateTime, &event.UserID)
+	err := row.Scan(&event.ID, &event.Name, &event.Description, &event.Location, &event.dateTime, &event.UserID)
 	if err != nil {
 		return nil, err
 	}
@@ -92,7 +91,7 @@ func (ev Event) Update() error {
 		}
 	}(stmt)
 
-	_, err = stmt.Exec(ev.Name, ev.Description, ev.Location, ev.DateTime, ev.ID)
+	_, err = stmt.Exec(ev.Name, ev.Description, ev.Location, ev.dateTime, ev.ID)
 	return err
 }
 
