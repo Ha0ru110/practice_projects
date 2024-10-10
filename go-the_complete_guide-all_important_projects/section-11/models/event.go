@@ -10,14 +10,15 @@ type Event struct {
 	Name        string `binding:"required"`
 	Description string `binding:"required"`
 	Location    string `binding:"required"`
-	dateTime    string `binding:"required"`
+	DateTime    string `binding:"required"`
 	UserID      int64
+	Token       string `binding:"required"`
 }
 
 //goland:noinspection ALL
 func (ev *Event) Save() error {
-	query := `INSERT INTO events(name, description, location, dateTime, user_id) 
-	VALUES(?, ?, ?, ?, ?)`
+	query := `INSERT INTO events(name, description, location, DateTime, user_id, token) 
+	VALUES(?, ?, ?, ?, ?, ?)`
 	stmt, err := db.DB.Prepare(query)
 	if err != nil {
 		return err
@@ -28,7 +29,7 @@ func (ev *Event) Save() error {
 			return
 		}
 	}(stmt)
-	result, err := stmt.Exec(ev.Name, ev.Description, ev.Location, ev.dateTime, ev.UserID)
+	result, err := stmt.Exec(ev.Name, ev.Description, ev.Location, ev.DateTime, ev.UserID, ev.Token)
 	if err != nil {
 		return err
 	}
@@ -52,7 +53,7 @@ func GetAllEvents() ([]Event, error) {
 	var events []Event
 	for rows.Next() {
 		var event Event
-		err := rows.Scan(&event.ID, &event.Name, &event.Description, &event.Location, &event.dateTime, &event.UserID)
+		err := rows.Scan(&event.ID, &event.Name, &event.Description, &event.Location, &event.DateTime, &event.UserID, &event.Token)
 		if err != nil {
 			return nil, err
 		}
@@ -66,7 +67,7 @@ func GetEventByID(id int64) (*Event, error) {
 	row := db.DB.QueryRow(query, id)
 
 	var event Event
-	err := row.Scan(&event.ID, &event.Name, &event.Description, &event.Location, &event.dateTime, &event.UserID)
+	err := row.Scan(&event.ID, &event.Name, &event.Description, &event.Location, &event.DateTime, &event.UserID, &event.Token)
 	if err != nil {
 		return nil, err
 	}
@@ -77,7 +78,7 @@ func GetEventByID(id int64) (*Event, error) {
 func (ev Event) Update() error {
 	query := `
 	UPDATE events
-	SET name = ?, description = ?, location = ?, dateTime = ?
+	SET name = ?, description = ?, location = ?, DateTime = ?
 	WHERE id = ?
 	`
 	stmt, err := db.DB.Prepare(query)
@@ -91,7 +92,7 @@ func (ev Event) Update() error {
 		}
 	}(stmt)
 
-	_, err = stmt.Exec(ev.Name, ev.Description, ev.Location, ev.dateTime, ev.ID)
+	_, err = stmt.Exec(ev.Name, ev.Description, ev.Location, ev.DateTime, ev.ID, ev.Token)
 	return err
 }
 

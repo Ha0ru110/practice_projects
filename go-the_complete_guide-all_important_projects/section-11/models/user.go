@@ -11,11 +11,12 @@ type User struct {
 	ID       int64
 	Email    string `binding:"required"`
 	Password string `binding:"required"`
+	Token    string
 }
 
 //goland:noinspection ALL
 func (u User) Save() error {
-	query := "INSERT INTO users(email, password) VALUES (?, ?)"
+	query := "INSERT INTO users(email, password, token) VALUES (?, ?, ?)"
 	stmt, err := db.DB.Prepare(query)
 	if err != nil {
 		return err
@@ -33,7 +34,7 @@ func (u User) Save() error {
 		return err
 	}
 
-	result, err := stmt.Exec(u.Email, hashedPassword)
+	result, err := stmt.Exec(u.Email, hashedPassword, u.Token)
 	if err != nil {
 		return err
 	}
@@ -45,11 +46,11 @@ func (u User) Save() error {
 
 //goland:noinspection ALL
 func (u *User) ValidateCredentials() error {
-	query := "SELECT id, password FROM users WHERE email = ?"
+	query := "SELECT id, password, token FROM users WHERE email = ?"
 
 	row := db.DB.QueryRow(query, u.Email)
 	var retrievePassword string
-	err := row.Scan(&u.ID, &retrievePassword)
+	err := row.Scan(&u.ID, &retrievePassword, &u.Token)
 	if err != nil {
 		return err
 	}

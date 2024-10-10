@@ -11,7 +11,7 @@ func main() {
 	db.InitDB()
 	server := gin.Default()
 	routes.RegisterRoutes(server)
-	err := server.Run("192.168.1.8:8080")
+	err := server.Run("192.168.1.11:8080")
 	if err != nil {
 		fmt.Println("starting server failed")
 		return
